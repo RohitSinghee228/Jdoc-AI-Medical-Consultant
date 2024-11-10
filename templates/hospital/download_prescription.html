@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .report-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            color: #007bff;
+            margin: 0;
+        }
+
+        .header h5 {
+            font-size: 20px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .report-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        .report-box table td {
+            padding: 10px;
+            vertical-align: top;
+        }
+
+        .report-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+
+        .report-box table tr.top {
+            border-bottom: 2px solid #007bff;
+        }
+
+        .report-box table tr.information {
+            border-bottom: 2px solid #007bff;
+        }
+
+        .report-box table tr.heading td {
+            background: #f2f2f2;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+
+        .report-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .report-box table tr.item.last td {
+            border-bottom: none;
+        }
+
+        .highlight {
+            background-color: #e7f3fe;
+            border-left: 6px solid #007bff;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .report-box table tr.top table td,
+            .report-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="report-box">
+        <div class="header">
+            <h1>Prescription Report</h1>
+        </div>
+
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>Admit Date:</strong> {{admitDate}}<br>
+                                <strong>Release Date:</strong> {{releaseDate}}<br>
+                            </td>
+                            <td>
+                                <strong>Patient Name:</strong> {{patientName}}<br>
+                                <strong>Patient Mobile:</strong> {{mobile}}<br>
+                                <strong>Patient Address:</strong> {{address}}<br>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>Doctor Name:</strong> {{assignedDoctorName}}<br>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="heading">
+                <td colspan="2">Disease Diagnosed</td>
+            </tr>
+            <tr class="item">
+                <td colspan="2">{{disease}}</td>
+            </tr>
+            <tr class="heading">
+                <td colspan="2">Symptoms</td>
+            </tr>
+            <tr class="item">
+                <td colspan="2">{{symptoms}}</td>
+            </tr>
+
+            <tr class="heading">
+                <td colspan="2">Medicines</td>
+            </tr>
+            <tr class="item">
+                <td colspan="2">{{medicines}}</td>
+            </tr>
+            <tr class="heading">
+                <td colspan="2">Recommended Medical Tests</td>
+            </tr>
+            <tr class="item">
+                <td colspan="2">{{medical_test}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

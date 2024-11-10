@@ -1,0 +1,75 @@
+{% extends 'hospital/doctor_base.html' %}
+{% block content %}
+{% load static %}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <style media="screen">
+    a:link { text-decoration: none; }
+    h6 { text-align: center; }
+    .row { margin: 100px; }
+    .form-group { margin-bottom: 20px; }
+  </style>
+</head>
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">Diagnosis for {{ patient.name }}</h6>
+    </div>
+
+    <form method="POST">
+      {% csrf_token %}
+      <div class="panel-body">
+        
+        <!-- Symptoms -->
+        <div class="form-group">
+          <label for="symptoms">Select Symptoms</label><br>
+          {% for symptom in symptoms %}
+            <input type="checkbox" name="symptoms" value="{{ symptom }}" checked> {{ symptom }}<br>
+          {% endfor %}
+          <input type="text" class="form-control" name="new_symptom" placeholder="Add new symptom"><br>
+        </div>
+
+        <!-- Diseases -->
+        <div class="form-group">
+          <label for="diseases">Select Diseases</label><br>
+          {% for disease, reason in diseases.items %}
+            <input type="checkbox" name="disease_{{ forloop.counter0 }}_name" value="{{ disease }}" checked>
+            Disease: <input type="text" name="disease_{{ forloop.counter0 }}_name" value="{{ disease }}">
+            Reason: <input type="text" name="disease_{{ forloop.counter0 }}_reason" value="{{ reason }}"><br>
+          {% endfor %}
+          <input type="text" class="form-control" name="new_disease_name" placeholder="Add new disease name">
+          <input type="text" class="form-control" name="new_disease_reason" placeholder="Add reason"><br>
+        </div>
+
+        <!-- Medicines -->
+        <div class="form-group">
+          <label for="medicines">Select Medicines</label><br>
+          {% for medicine, dosage in medicines.items %}
+            <input type="checkbox" name="medicine_{{ forloop.counter0 }}_name" value="{{ medicine }}" checked>
+            Medicine: <input type="text" name="medicine_{{ forloop.counter0 }}_name" value="{{ medicine }}">
+            Dosage: <input type="text" name="medicine_{{ forloop.counter0 }}_dosage" value="{{ dosage }}"><br>
+          {% endfor %}
+          <input type="text" class="form-control" name="new_medicine_name" placeholder="Add new medicine name">
+          <input type="text" class="form-control" name="new_medicine_dosage" placeholder="Add dosage"><br>
+        </div>
+
+        <!-- Medical Tests -->
+        <div class="form-group">
+          <label for="medical_tests">Select Medical Tests</label><br>
+          {% for test in medical_tests %}
+            <input type="checkbox" name="medical_tests" value="{{ test }}" checked> {{ test }}<br>
+          {% endfor %}
+          <input type="text" class="form-control" name="new_test" placeholder="Add new medical test"><br>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Diagnosis</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}

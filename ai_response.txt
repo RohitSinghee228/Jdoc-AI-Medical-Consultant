@@ -1,0 +1,3 @@
+Can you tell me more about the pain you're experiencing? Is it a sharp, stabbing pain or a dull ache?
+
+Please answer this question and I'll proceed with the next one.

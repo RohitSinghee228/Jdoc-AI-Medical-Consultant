@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Django Chat App</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 800px;
+      height: 90vh;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+    .chat-header {
+      padding: 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .chat-body {
+      flex-grow: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background-color: #f1f1f1;
+    }
+    .chat-message {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+      align-items: flex-end;
+    }
+    .chat-message.user {
+      align-items: flex-end;
+    }
+    .chat-message.ai {
+      align-items: flex-start;
+    }
+    .chat-message-text {
+      padding: 12px 16px;
+      border-radius: 18px;
+      max-width: 70%;
+      word-wrap: break-word;
+    }
+    .chat-message.user .chat-message-text {
+      background-color: #007bff;
+      color: #fff;
+    }
+    .chat-message.ai .chat-message-text {
+      background-color: #e9ecef;
+      color: #333;
+    }
+    .chat-message .chat-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+      font-size: 1em;
+    }
+    .chat-footer {
+      display: flex;
+      padding: 15px;
+      border-top: 1px solid #e0e0e0;
+      background-color: #fff;
+    }
+    .chat-input {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      font-size: 1em;
+      outline: none;
+    }
+    .chat-button {
+      margin-left: 10px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .chat-button:hover {
+      background-color: #0056b3;
+    }
+    /* Typing indicator */
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 0.9em;
+      color: #555;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      margin: 0 2px;
+      background-color: #007bff;
+      border-radius: 50%;
+      animation: bounce 0.6s infinite alternate;
+    }
+    .dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    @keyframes bounce {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0.3;
+        transform: translateY(-8px);
+      }
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Initial message from AI
+      $("#chat-history").append(
+        "<div class='chat-message ai'><div class='chat-name'>JDoc</div><div class='chat-message-text'>Hi, I am your AI Junior Doctor. Please let me know your health issues.</div></div>"
+      );
+
+      $("#chat-form").submit(function (event) {
+        event.preventDefault();
+        var userInput = $("#user-input").val();
+        $("#user-input").val("");
+        $("#chat-history").append(
+          "<div class='chat-message user'><div class='chat-message-text'>" + userInput + "</div></div>"
+        );
+
+        // Show typing indicator with "JDoc" and "thinking..."
+        var aiResponseElement = $("<div class='chat-message ai'><div class='chat-name'>JDoc</div><div class='chat-message-text'></div></div>");
+        $("#chat-history").append(aiResponseElement);
+        var typingIndicator = $("<div class='typing-indicator'><span style='font-size: 0.8em;'>thinking...</span> <div class='dot'></div><div class='dot'></div><div class='dot'></div></div>");
+        $("#chat-history").append(typingIndicator);
+
+
+
+        $.ajax({
+          type: "POST",
+          url: "/chat/",
+          data: { user_input: userInput },
+          xhrFields: {
+            onprogress: function (xhr) {
+              var response = xhr.target.responseText;
+              aiResponseElement.find('.chat-message-text').html(response);
+            },
+          },
+          success: function () {
+            typingIndicator.remove(); // Remove typing indicator on response
+          },
+          error: function () {
+            typingIndicator.remove(); // Remove typing indicator if there's an error
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">
+      AI Doctor Jdoc
+    </div>
+    <div class="chat-body" id="chat-history"></div>
+    <div class="chat-footer">
+      <form id="chat-form" style="width: 100%; display: flex;">
+        <input type="text" id="user-input" class="chat-input" name="user_input" placeholder="Type a message..." required />
+        <button type="submit" class="chat-button">Send</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
