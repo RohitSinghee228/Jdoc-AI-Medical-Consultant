@@ -95,7 +95,7 @@ By handling initial patient queries and data collection, the LLM reduces time sp
    - To deploy the Large Language Model (LLM) using Ollama's dockerized setup, run below commands one by one:
    ```bash
    docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
-   docker cp sem/final_project/Jdoc-AI-Medical-Consultant/llm/jdoc_modelfile ollama:/root/.ollama/
+   docker cp llm/jdoc_modelfile ollama:/root/.ollama/
    docker exec -it ollama ollama create mymodel -f /root/.ollama/jdoc_modelfile
    ```
 
