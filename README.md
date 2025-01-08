@@ -125,14 +125,4 @@ By handling initial patient queries and data collection, the LLM reduces time sp
 - **LLM Deployment**: Ollama Dockerized Service
 - **Model Used**: llama3.1 for AI chat functionality
 
----
-
-## About the Developers
-
-**Group 11 - SEM Project**  
-- **Rohit Singhee**
-- **Kuldeep Chaudhary**
-- **Shreedhar Soni**
-- **Anmol Sharma**
-
 J-Doc is the result of collaborative development by passionate individuals aiming to make healthcare accessible, efficient, and innovative.
