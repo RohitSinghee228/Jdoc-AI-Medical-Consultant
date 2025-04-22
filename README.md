@@ -2,6 +2,9 @@
 
 Welcome to **J-Doc**, an AI-powered medical consultant platform designed to enhance healthcare efficiency, accessibility, and quality. With J-Doc, patients can access medical consultation anytime, anywhere, through an AI-enabled virtual doctor, and doctors can streamline their workflow, focusing on finalizing diagnoses and treatment plans. Senior doctors verify final prescriptions, adding a layer of reliability to AI recommendations, optimizing their efficiency, and reducing administrative overhead.
 
+## Video Demo
+[![J-Doc Video Demo](https://img.youtube.com/vi/DpszTjQyG7k/0.jpg)](https://youtu.be/DpszTjQyG7k)
+
 ---
 
 ## Features and Benefits of J-Doc
